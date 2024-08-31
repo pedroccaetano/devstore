@@ -4,7 +4,11 @@ import { api } from '@/app/data/api'
 import { Product } from '@/app/data/types/products'
 
 async function getFeaturedProducts(): Promise<Product[]> {
-  const response = await api('/products/featured')
+  const response = await api('/products/featured', {
+    next: {
+      revalidate: 6 * 60,
+    },
+  })
 
   return await response.json()
 }
@@ -13,7 +17,7 @@ export default async function Home() {
   const [highlightedProduct, ...otherProducts] = await getFeaturedProducts()
 
   return (
-    <div className="grid max-h-[800px] grid-cols-9 grid-row-6 gap-6">
+    <div className="grid max-h-[800px] grid-cols-9 grid-rows-6 gap-6">
       <Link
         href={`/product/${highlightedProduct.slug}`}
         className="group relative col-span-6 row-span-6 rounded-lg bg-zinc-900 overflow-hidden flex justify-center items-end"
