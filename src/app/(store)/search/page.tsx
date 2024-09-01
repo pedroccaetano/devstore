@@ -31,7 +31,7 @@ export default async function Search({ searchParams }: SearchProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <p>
+      <p className="text-sm">
         Resultados para: <span className="font-semibold">{query}</span>
       </p>
 
