@@ -30,10 +30,17 @@ export async function generateMetadata({
   }
 }
 
+export async function generateStaticParams() {
+  const response = await api('/products/featured')
+  const products: Product[] = await response.json()
+
+  return products.map((product) => ({
+    slug: product.slug,
+  }))
+}
+
 export default async function ProductPage({ params: { slug } }: ProductProps) {
   const product = await getProduct(slug)
-
-  console.log(product)
 
   return (
     <div className="relative grid max-h-[860px] grid-cols-3">
