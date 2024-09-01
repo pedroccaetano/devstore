@@ -2,7 +2,7 @@ import { z } from 'zod'
 import data from '../data.json'
 
 export async function GET(
-  request: Request,
+  _: Request,
   { params }: { params: { slug: string } },
 ) {
   const slug = z.string().parse(params.slug)
